@@ -1,0 +1,414 @@
+[
+    {
+        "id": 1,
+        "emergency_contacts": [
+            {
+                "id": 1,
+                "name": "Ahmed Ali",
+                "phone": "+201001234571",
+                "relationship": "Brother",
+                "client": 1
+            }
+        ],
+        "medical_information": [
+            {
+                "id": 1,
+                "physician": "Dr. Smith",
+                "physician_phone": "+201001234573",
+                "under_care": true,
+                "care_reason": "Hypertension",
+                "taking_medication": true,
+                "medication_list": "Lisinopril",
+                "allergies": "Peanuts",
+                "high_blood_pressure": true,
+                "bone_joint_problem": false,
+                "vigorous_exercise": true,
+                "chest_pain": false,
+                "smoking_habits": "Non-smoker",
+                "family_history": {
+                    "heart_disease": true,
+                    "diabetes": false
+                },
+                "lifestyle_factors": {
+                    "diet": "Vegetarian",
+                    "exercise": "Regular"
+                },
+                "cardiovascular_conditions": {
+                    "heart_attack": false,
+                    "stroke": false
+                },
+                "work_exercise_habits": {
+                    "office_work": true,
+                    "manual_labor": false
+                },
+                "nutritional_info": {
+                    "caloric_intake": "2000",
+                    "supplements": "None"
+                },
+                "client": 1
+            }
+        ],
+        "health_history": [
+            {
+                "id": 1,
+                "asthma": {
+                    "present": false
+                },
+                "respiratory_conditions": {
+                    "bronchitis": false
+                },
+                "diabetes": {
+                    "type1": false,
+                    "type2": false
+                },
+                "epilepsy": {
+                    "seizures": false
+                },
+                "osteoporosis": {
+                    "bone_density": "Normal"
+                },
+                "other_conditions": {
+                    "thyroid_issues": false
+                },
+                "client": 1
+            }
+        ],
+        "fitness_assessments": [
+            {
+                "id": 1,
+                "date": "2024-07-17",
+                "blood_pressure": "120/80",
+                "resting_heart_rate": "70",
+                "high_estimate_heart_rate": "180",
+                "cardiovascular_test_name": "Treadmill Test",
+                "cardiovascular_test_result": "Good",
+                "muscle_strength_bench_press": "50kg",
+                "muscle_strength_leg_press": "100kg",
+                "muscle_strength_advanced_1rm": "75kg",
+                "flexibility_zipper_stretch": "Good",
+                "flexibility_sit_and_reach": "Average",
+                "push_ups": "20",
+                "sit_ups": "30",
+                "walk_test": "Passed",
+                "client": 1
+            }
+        ],
+        "training_plans": [
+            {
+                "id": 1,
+                "created_at": "2024-07-17T12:58:47.293622+03:00",
+                "updated_at": "2024-07-17T12:58:47.293622+03:00",
+                "is_deleted": false,
+                "level": "Beginner",
+                "frequency": 3,
+                "program": "Full Body Workout",
+                "date": "2024-07-17",
+                "client": 1,
+                "created_by": 1,
+                "updated_by": 1
+            }
+        ],
+        "absences": [
+            {
+                "id": 1,
+                "date": "2024-07-17",
+                "reason": "Medical Appointment",
+                "client": 1
+            }
+        ],
+        "muscle_information": [
+            {
+                "id": 1,
+                "muscle_group": "BACK",
+                "size": "Large",
+                "comments": "Good progress in upper back muscles",
+                "date": "2024-07-17",
+                "client": 1
+            },
+            {
+                "id": 2,
+                "muscle_group": "SHOULDER",
+                "size": "Medium",
+                "comments": "Steady improvement in shoulder muscles",
+                "date": "2024-07-17",
+                "client": 1
+            },
+            {
+                "id": 3,
+                "muscle_group": "ARM",
+                "size": "Medium",
+                "comments": "Consistent strength in arm muscles",
+                "date": "2024-07-17",
+                "client": 1
+            },
+            {
+                "id": 4,
+                "muscle_group": "HAND",
+                "size": "Small",
+                "comments": "Working on wrist and hand flexibility",
+                "date": "2024-07-17",
+                "client": 1
+            },
+            {
+                "id": 5,
+                "muscle_group": "LOWER_BACK",
+                "size": "Medium",
+                "comments": "Improving lower back strength",
+                "date": "2024-07-17",
+                "client": 1
+            },
+            {
+                "id": 6,
+                "muscle_group": "HIP",
+                "size": "Large",
+                "comments": "Strong hip and pelvis muscles",
+                "date": "2024-07-17",
+                "client": 1
+            },
+            {
+                "id": 7,
+                "muscle_group": "KNEE",
+                "size": "Medium",
+                "comments": "Stable thigh and knee muscles",
+                "date": "2024-07-17",
+                "client": 1
+            },
+            {
+                "id": 8,
+                "muscle_group": "ARTHRITIS",
+                "size": "Small",
+                "comments": "Managing arthritis symptoms",
+                "date": "2024-07-17",
+                "client": 1
+            }
+        ],
+        "images": [
+            {
+                "id": 1,
+                "image_path": "/images/client_images/abdelfattah.jpg",
+                "date": "2024-07-17",
+                "client": 1
+            }
+        ],
+        "created_at": "2024-07-17T12:58:46.173905+03:00",
+        "updated_at": "2024-07-17T12:58:46.173905+03:00",
+        "is_deleted": false,
+        "name": "Abdelfattah",
+        "home_phone": "+201001234567",
+        "address": "123 Main St",
+        "occupation": "Engineer",
+        "date_of_birth": "1990-01-01",
+        "id_number": "1234567890",
+        "work_phone": "+201001234568",
+        "date_joined": "2024-07-17",
+        "day_number": 1,
+        "created_by": 1,
+        "updated_by": 1
+    },
+    {
+        "id": 2,
+        "emergency_contacts": [
+            {
+                "id": 2,
+                "name": "Sara Mohamed",
+                "phone": "+201001234572",
+                "relationship": "Sister",
+                "client": 2
+            }
+        ],
+        "medical_information": [
+            {
+                "id": 2,
+                "physician": "Dr. Johnson",
+                "physician_phone": "+201001234574",
+                "under_care": false,
+                "care_reason": null,
+                "taking_medication": false,
+                "medication_list": null,
+                "allergies": null,
+                "high_blood_pressure": false,
+                "bone_joint_problem": true,
+                "vigorous_exercise": false,
+                "chest_pain": true,
+                "smoking_habits": "Smoker",
+                "family_history": {
+                    "heart_disease": false,
+                    "diabetes": true
+                },
+                "lifestyle_factors": {
+                    "diet": "Non-vegetarian",
+                    "exercise": "Irregular"
+                },
+                "cardiovascular_conditions": {
+                    "heart_attack": true,
+                    "stroke": false
+                },
+                "work_exercise_habits": {
+                    "office_work": false,
+                    "manual_labor": true
+                },
+                "nutritional_info": {
+                    "caloric_intake": "2500",
+                    "supplements": "Vitamins"
+                },
+                "client": 2
+            }
+        ],
+        "health_history": [
+            {
+                "id": 2,
+                "asthma": {
+                    "present": true
+                },
+                "respiratory_conditions": {
+                    "bronchitis": true
+                },
+                "diabetes": {
+                    "type1": false,
+                    "type2": true
+                },
+                "epilepsy": {
+                    "seizures": true
+                },
+                "osteoporosis": {
+                    "bone_density": "Low"
+                },
+                "other_conditions": {
+                    "thyroid_issues": true
+                },
+                "client": 2
+            }
+        ],
+        "fitness_assessments": [
+            {
+                "id": 2,
+                "date": "2024-07-17",
+                "blood_pressure": "130/85",
+                "resting_heart_rate": "75",
+                "high_estimate_heart_rate": "170",
+                "cardiovascular_test_name": "Cycling Test",
+                "cardiovascular_test_result": "Average",
+                "muscle_strength_bench_press": "60kg",
+                "muscle_strength_leg_press": "110kg",
+                "muscle_strength_advanced_1rm": "80kg",
+                "flexibility_zipper_stretch": "Average",
+                "flexibility_sit_and_reach": "Good",
+                "push_ups": "25",
+                "sit_ups": "35",
+                "walk_test": "Passed",
+                "client": 2
+            }
+        ],
+        "training_plans": [
+            {
+                "id": 2,
+                "created_at": "2024-07-17T12:58:47.370111+03:00",
+                "updated_at": "2024-07-17T12:58:47.370111+03:00",
+                "is_deleted": false,
+                "level": "Intermediate",
+                "frequency": 5,
+                "program": "Cardio and Strength Training",
+                "date": "2024-07-17",
+                "client": 2,
+                "created_by": 1,
+                "updated_by": 1
+            }
+        ],
+        "absences": [
+            {
+                "id": 2,
+                "date": "2024-07-17",
+                "reason": "Family Event",
+                "client": 2
+            }
+        ],
+        "muscle_information": [
+            {
+                "id": 9,
+                "muscle_group": "BACK",
+                "size": "Medium",
+                "comments": "Needs more work on upper back muscles",
+                "date": "2024-07-17",
+                "client": 2
+            },
+            {
+                "id": 10,
+                "muscle_group": "SHOULDER",
+                "size": "Small",
+                "comments": "Developing shoulder muscles",
+                "date": "2024-07-17",
+                "client": 2
+            },
+            {
+                "id": 11,
+                "muscle_group": "ARM",
+                "size": "Medium",
+                "comments": "Improving arm strength",
+                "date": "2024-07-17",
+                "client": 2
+            },
+            {
+                "id": 12,
+                "muscle_group": "HAND",
+                "size": "Small",
+                "comments": "Focusing on hand dexterity exercises",
+                "date": "2024-07-17",
+                "client": 2
+            },
+            {
+                "id": 13,
+                "muscle_group": "LOWER_BACK",
+                "size": "Small",
+                "comments": "Addressing lower back pain",
+                "date": "2024-07-17",
+                "client": 2
+            },
+            {
+                "id": 14,
+                "muscle_group": "HIP",
+                "size": "Medium",
+                "comments": "Working on hip flexibility and strength",
+                "date": "2024-07-17",
+                "client": 2
+            },
+            {
+                "id": 15,
+                "muscle_group": "KNEE",
+                "size": "Large",
+                "comments": "Strong thigh and knee muscles",
+                "date": "2024-07-17",
+                "client": 2
+            },
+            {
+                "id": 16,
+                "muscle_group": "ARTHRITIS",
+                "size": "Medium",
+                "comments": "Managing arthritis symptoms",
+                "date": "2024-07-17",
+                "client": 2
+            }
+        ],
+        "images": [
+            {
+                "id": 2,
+                "image_path": "/images/client_images/khattab.jpg",
+                "date": "2024-07-17",
+                "client": 2
+            }
+        ],
+        "created_at": "2024-07-17T12:58:46.280608+03:00",
+        "updated_at": "2024-07-17T12:58:46.280608+03:00",
+        "is_deleted": false,
+        "name": "Khattab",
+        "home_phone": "+201001234569",
+        "address": "456 Elm St",
+        "occupation": "Doctor",
+        "date_of_birth": "1985-05-05",
+        "id_number": "0987654321",
+        "work_phone": "+201001234570",
+        "date_joined": "2024-07-17",
+        "day_number": 2,
+        "created_by": 1,
+        "updated_by": 1
+    }
+]

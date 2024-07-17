@@ -15,18 +15,20 @@ class Client(BaseModel):
     name = models.CharField(max_length=100)
     home_phone = models.CharField(max_length=15, validators=[
         RegexValidator(r'^\+?1?\d{9,15}$', 'Enter a valid phone number.')
-    ])
-    address = models.CharField(max_length=255)
-    occupation = models.CharField(max_length=100)
+    ] , null=True)
+    address = models.CharField(max_length=255 , null=True)
+    occupation = models.CharField(max_length=100 , null=True)
     date_of_birth = models.DateField()
-    id_number = models.CharField(max_length=20, unique=True)
+    # id_number = models.CharField(max_length=20, unique=True)
     work_phone = models.CharField(max_length=15, validators=[
         RegexValidator(r'^\+?1?\d{9,15}$', 'Enter a valid phone number.')
-    ])
-    date_joined = models.DateField()
+    ] , null= True)
+    # date_joined = models.DateField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE , related_name="person" , null=True , blank=True)
+    
     created_by = models.ForeignKey(User , on_delete=models.SET_NULL , null=True , related_name="created_user")
     updated_by = models.ForeignKey(User , on_delete=models.SET_NULL , null= True , related_name="updated_user") 
-    
+    day_number = models.IntegerField(default=0)
 
 class EmergencyContact(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='emergency_contacts')
@@ -83,6 +85,9 @@ class FitnessAssessment(models.Model):
     push_ups = models.CharField(max_length=100)
     sit_ups = models.CharField(max_length=100)
     walk_test = models.CharField(max_length=100)
+    class Meta:
+        # Ensure each combination of client, muscle_group, and date is unique
+        unique_together = ['client', 'date']
 
 class TrainingPlan(BaseModel):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='training_plans')
@@ -104,18 +109,38 @@ class Exercise(BaseModel):
     created_by = models.ForeignKey(User , on_delete=models.SET_NULL , null=True , related_name="created_exercise")
     updated_by = models.ForeignKey(User , on_delete=models.SET_NULL , null= True , related_name="updated_exercise") 
     
+    class Meta:
+        # Ensure each combination of client, muscle_group, and date is unique
+        unique_together = ['exercise_name', 'training_plan']
+    
 
 class Absence(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='absences')
     date = models.DateField()
     reason = models.TextField(blank=True, null=True)
+    class Meta:
+        # Ensure each combination of client, muscle_group, and date is unique
+        unique_together = ['client', 'date']
 
 class MuscleInformation(models.Model):
+    muscles = ( 
+        ("BACK", "Upper back"),
+        ("SHOULDER", "Shoulder/clavicle"),
+        ("ARM", "Arm/elbow"),
+        ("HAND", "Wrist/hand"),
+        ("LOWER_BACK", "Lower back"),
+        ("HIP", "Hip/pelvis"),
+        ("KNEE", "Thigh/Knee"),
+        ("ARTHRITIS", "Arthritis"),
+    )
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='muscle_information')
-    muscle_group = models.CharField(max_length=100)
+    muscle_group = models.CharField(max_length=100 , choices=muscles)
     size = models.CharField(max_length=100)
     comments = models.TextField(blank=True, null=True)
     date = models.DateField()
+    class Meta:
+        # Ensure each combination of client, muscle_group, and date is unique
+        unique_together = ['client', 'muscle_group', 'date']
     
 
 class ClientImage(models.Model):
