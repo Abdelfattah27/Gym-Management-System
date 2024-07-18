@@ -12,6 +12,16 @@ def validate_non_negative(value):
         raise ValidationError('Value cannot be negative.')
 
 class Client(BaseModel):
+    subscriptions = ( 
+        ("MONTHLY", "MONTHLY"),
+        ("YEARLY", "YEARLY"),
+        ("DAILY", "DAILY")
+    )
+    
+    genders = ( 
+        ("MALE", "MALE"),
+        ("Female", "Female")
+    )
     name = models.CharField(max_length=100)
     home_phone = models.CharField(max_length=15, validators=[
         RegexValidator(r'^\+?1?\d{9,15}$', 'Enter a valid phone number.')
@@ -20,15 +30,21 @@ class Client(BaseModel):
     occupation = models.CharField(max_length=100 , null=True)
     date_of_birth = models.DateField()
     # id_number = models.CharField(max_length=20, unique=True)
+    gender = models.CharField(max_length=10 , choices=genders)
     work_phone = models.CharField(max_length=15, validators=[
         RegexValidator(r'^\+?1?\d{9,15}$', 'Enter a valid phone number.')
     ] , null= True)
     # date_joined = models.DateField()
     user = models.OneToOneField(User, on_delete=models.CASCADE , related_name="person" , null=True , blank=True)
     
+    day_number = models.IntegerField(default=0)
+    subscription_plan = models.CharField(max_length=200 , choices=subscriptions)
+    subscription_start_data = models.DateField()
+    subscription_end_data = models.DateField()
+    status = models.BooleanField()
+    
     created_by = models.ForeignKey(User , on_delete=models.SET_NULL , null=True , related_name="created_user")
     updated_by = models.ForeignKey(User , on_delete=models.SET_NULL , null= True , related_name="updated_user") 
-    day_number = models.IntegerField(default=0)
 
 class EmergencyContact(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='emergency_contacts')
@@ -71,7 +87,7 @@ class HealthHistory(models.Model):
 
 class FitnessAssessment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='fitness_assessments')
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     blood_pressure = models.CharField(max_length=20)
     resting_heart_rate = models.CharField(max_length=20, validators=[validate_non_negative])
     high_estimate_heart_rate = models.CharField(max_length=20, validators=[validate_non_negative])
@@ -94,7 +110,7 @@ class TrainingPlan(BaseModel):
     level = models.CharField(max_length=50)
     frequency = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(7)])
     program = models.TextField()
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     created_by = models.ForeignKey(User , on_delete=models.SET_NULL , null=True , related_name="created_training_plans")
     updated_by = models.ForeignKey(User , on_delete=models.SET_NULL , null= True , related_name="updated_training_plans") 
     
@@ -116,7 +132,7 @@ class Exercise(BaseModel):
 
 class Absence(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='absences')
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     reason = models.TextField(blank=True, null=True)
     class Meta:
         # Ensure each combination of client, muscle_group, and date is unique
@@ -137,7 +153,7 @@ class MuscleInformation(models.Model):
     muscle_group = models.CharField(max_length=100 , choices=muscles)
     size = models.CharField(max_length=100)
     comments = models.TextField(blank=True, null=True)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     class Meta:
         # Ensure each combination of client, muscle_group, and date is unique
         unique_together = ['client', 'muscle_group', 'date']
@@ -146,5 +162,5 @@ class MuscleInformation(models.Model):
 class ClientImage(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='images')
     image_path = models.ImageField(upload_to='client_images/')
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     

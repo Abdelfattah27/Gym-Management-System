@@ -25,4 +25,6 @@ urlpatterns = [
     # path('<str:client_pk>/muscleinformation/<str:pk>/', views.muscle_information_detail),
     path('<str:client_pk>/clientimages/', views.client_image_list_create),
     # path('<str:client_pk>/clientimages/<str:pk>/', views.client_image_detail),
+    path('<str:client_pk>/latestclientimage/', views.client_last_image),
+    path('<str:client_pk>/subscription/', views.client_subscription),
 ]

@@ -61,3 +61,5 @@ class MuscleInformationAdmin(admin.ModelAdmin):
 class ClientImageAdmin(admin.ModelAdmin):
     list_display = ('client', 'image_path', 'date')
     search_fields = ('client__name',)
+# from authen.models import User    
+# admin.site.register(User)

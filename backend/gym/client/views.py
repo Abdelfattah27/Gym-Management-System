@@ -9,6 +9,8 @@ from django.utils import timezone
 from django.db import IntegrityError
 from .helper import generate_password
 from authen.models import User
+from rest_framework import status
+from datetime import timedelta
 
 @permission_classes([IsAdminUser]) 
 @api_view(["GET"] )
@@ -62,6 +64,28 @@ def mark_client_absent(request , pk) :
 def add_client(request ) : 
     data = request.data 
     data["created_by"] = request.user.id
+    current_date = timezone.now().date()
+    
+    subscription_durations = {
+        "MONTHLY": timedelta(days=30),
+        "YEARLY": timedelta(days=365),
+        "DAILY": timedelta(days=1),
+    }
+    
+    # Set the start date to now if not provided
+    data["subscription_start_date"] = data.get("subscription_start_date", current_date)
+    
+    # Calculate the end date based on the subscription plan
+    if subscription_plan in subscription_durations:
+        data["subscription_end_date"] = data["subscription_start_date"] + subscription_durations[subscription_plan]
+    else:
+        # Default end date if the subscription plan is not recognized
+        data["subscription_end_date"] = data.get("subscription_end_date", current_date)
+    
+    # subscription_plan = data.get("subscription_plan")
+    # if subscription_plan == "MONTHLY" : 
+    #     data["subscription_start_data"] = data.get("subscription_start_data" , timezone.now().date)
+    #     data["subscription_end_data"] = data.get("subscription_end_data" , timezone.now().date)
     
     serializer = ClientSerializer(data=data)
     if serializer.is_valid () :
@@ -193,9 +217,9 @@ def muscle_information_list_create(request, client_pk):
 # def muscle_information_detail(request, client_pk, pk):
 #     return retrieve_update_delete_view(request, client_pk, pk, MuscleInformation, MuscleInformationSerializer)
 
-@api_view(['GET', 'POST'])
-def client_image_list_create(request, client_pk):
-    return list_create_view(request, client_pk, ClientImage, ClientImageSerializer)
+# @api_view(['GET', 'POST'])
+# def client_image_list_create(request, client_pk):
+#     return list_create_view(request, client_pk, ClientImage, ClientImageSerializer)
 
 # @api_view(['GET', 'PUT', 'DELETE'])
 # def client_image_detail(request, client_pk, pk):
@@ -203,4 +227,55 @@ def client_image_list_create(request, client_pk):
 
         
     
-   
+@permission_classes([IsAdminUser])
+@api_view(["POST" , "GET"])
+def client_image_list_create(request , client_pk):
+    try:
+        if request.method == "POST" : 
+            image = request.FILES.get("image")
+            if client_pk and image:
+                client_image = ClientImage(client_id = client_pk )
+                client_image.image_path.save(image.name, image)
+                client_image.save()
+                
+                # serializer = ProductSerializer(product)
+                return Response({"detail" : "Image Saved Successfully"}, status=status.HTTP_200_OK)
+            else:
+                return Response({"message": "Parameter(s) missing"}, status=status.HTTP_400_BAD_REQUEST)
+        elif request.method == "GET" : 
+            
+            images = ClientImage.objects.filter(client_id = client_pk) 
+            serializer = ClientImageSerializer(images , many=  True)
+            return Response(serializer.data , status=200)
+        
+    except Exception as ex:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+@permission_classes([IsAdminUser , IsAuthenticated])
+@api_view(["GET"])  
+def client_last_image(request , client_pk) :
+    if request.user.is_superuser or request.user.client_id == client_pk :  
+        latest_image = ClientImage.objects.filter(client_id =client_pk ).order_by('-date').first()
+        if latest_image : 
+            serializer = ClientImageSerializer(latest_image)
+            return Response(serializer.data , status=200)
+        else : 
+            return Response({"detail" : "No Images for that user" } , status=404)
+    else : 
+        return Response({"detail" : "Not Authorized"} , status=status.HTTP_403_FORBIDDEN)
+
+def client_subscription(request , client_id) : 
+    if request.method == "GET" : 
+        client = Client.objects.filter(id=client_id).only("name" , "subscription_plan", "subscription_start_data", "subscription_end_data").first()
+        status = client.subscription_end_data <= timezone.now().date
+        if client : 
+            data = {
+                "name" : client.name , 
+                "subscription_plan" : client.subscription_plan ,
+                "subscription_start_data" : client.subscription_start_data , 
+                "subscription_end_data" : client.subscription_end_data , 
+                "status" : status
+              }
+            return Response(data , status=200)
+        else : 
+            return Response({"detail" : "No CLient With this id"} , status=404) 
+         
