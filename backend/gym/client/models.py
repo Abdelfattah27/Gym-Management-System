@@ -45,6 +45,9 @@ class Client(BaseModel):
     
     created_by = models.ForeignKey(User , on_delete=models.SET_NULL , null=True , related_name="created_user")
     updated_by = models.ForeignKey(User , on_delete=models.SET_NULL , null= True , related_name="updated_user") 
+    
+    def __str__(self) : 
+        return self.name
 
 class EmergencyContact(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='emergency_contacts')
@@ -53,6 +56,8 @@ class EmergencyContact(models.Model):
         RegexValidator(r'^\+?1?\d{9,15}$', 'Enter a valid phone number.')
     ])
     relationship = models.CharField(max_length=50)
+    
+    
 
 class MedicalInformation(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='medical_information')
@@ -146,7 +151,6 @@ class MuscleInformation(models.Model):
         ("HAND", "Wrist/hand"),
         ("LOWER_BACK", "Lower back"),
         ("HIP", "Hip/pelvis"),
-        ("KNEE", "Thigh/Knee"),
         ("ARTHRITIS", "Arthritis"),
     )
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='muscle_information')
